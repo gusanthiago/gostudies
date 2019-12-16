@@ -1,5 +1,7 @@
 package main
 
+import "math"
+
 type Node struct {
     value int
     left *Node
@@ -27,7 +29,17 @@ func (n *Node) Insert(value int) *Node {
         }
     }
     return n
-} 
+}
+
+func (root *Node) Height() int {
+    if root == nil {
+        return -1
+    }
+    return int(
+        math.Max(
+            float64(root.left.Height()),
+            float64(root.right.Height())) + 1)
+}
 
 func (n *Node) IsExist(value int) bool {
     if n == nil {
@@ -67,4 +79,6 @@ func main() {
     println(t.IsExist(10))
     println(t.IsExist(1))
     println(t.IsExist(-2))
+
+    println("Height", t.Height())
 }
